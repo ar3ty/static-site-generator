@@ -8,6 +8,11 @@ class TestTextNode(unittest.TestCase):
         node2 = TextNode("This is a text node", TextType.BOLD)
         self.assertEqual(node, node2)
 
+    def test_eq1(self):
+        node = TextNode("This is a text node", TextType.BOLD)
+        node2 = TextNode("This is a text node2", TextType.BOLD)
+        self.assertNotEqual(node, node2)
+
     def test_ineq(self):
         node = TextNode("This is a text node", TextType.BOLD)
         node2 = TextNode("This is a text node", TextType.ITALIC)
@@ -22,6 +27,11 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is a text node", TextType.ITALIC, "https:/www.tro.com")
         node2 = TextNode("This is a text node", TextType.ITALIC)
         self.assertNotEqual(node, node2)
+
+    def test_print(self):
+        node = TextNode("This is a text node", TextType.BOLD)
+        node2 = "TextNode(This is a text node, bold, None)"
+        self.assertEqual(repr(node), node2)
 
 if __name__ == "__main__":
     unittest.main()
