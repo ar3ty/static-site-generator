@@ -38,3 +38,48 @@ class TestHTMLNode(unittest.TestCase):
     def test_leafnode_no_tag(self):
         node1 = LeafNode(None, "text")
         self.assertEqual(node1.to_html(), "text")
+
+    def test_parentnode(self):
+        node = ParentNode(
+            "p",
+            [
+                LeafNode("b", "Bold text"),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text"),
+                LeafNode(None, "Normal text"),
+            ],
+        )
+        str_node = '<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>'
+        self.assertEqual(node.to_html(), str_node)
+    
+    def test_parentnode_no_children(self):
+        node = ParentNode("p", None)
+        self.assertRaises(ValueError, lambda: node.to_html())
+
+    def test_parentnode_no_tag(self):
+        node = ParentNode(None, None)
+        self.assertRaises(ValueError, lambda: node.to_html())
+  
+    def test_parentnode_parent(self):
+        node = ParentNode(
+            "h1",
+            [
+                LeafNode("b", "Bold text"),
+                ParentNode("p", [
+                    LeafNode("b", "Bold text"),
+                    LeafNode(None, "Normal text"),
+                    LeafNode("i", "italic text"),
+                    LeafNode(None, "Normal text"),
+                ]),
+                LeafNode("i", "italic text"),
+                LeafNode(None, "Normal text"),
+            ],
+        )
+        str_node = '<h1><b>Bold text</b><p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p><i>italic text</i>Normal text</h1>'
+        self.assertEqual(node.to_html(), str_node)
+    
+    def test_perentnode_with_grandchildren(self):
+        grandchild = LeafNode("b", "grandchildren")
+        child = ParentNode("p", [grandchild])
+        parent = ParentNode("h1", [child])
+        self.assertEqual(parent.to_html(), '<h1><p><b>grandchildren</b></p></h1>')
