@@ -41,14 +41,3 @@ def textnode_to_htmlnode(text_node):
             })
         case _:
             raise Exception(f"unknown type: {text_node.text_type}")
-
-def split_nodes_delimeter(old_nodes, delimeter, text_type):
-    node_list = []
-    for node in old_nodes:
-        if node.text_type != TextType.TEXT:
-            node_list.append(node)
-       
-            
-            
-            
-
