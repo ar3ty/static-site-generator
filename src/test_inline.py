@@ -46,8 +46,8 @@ class TestDelimiterSplit (unittest.TestCase):
         self.assertEqual(nodes[2], TextNode(" text", TextType.TEXT))
 
     def test_italic_sample(self):
-        node1 = TextNode("this is *italic* text", TextType.TEXT)
-        nodes = split_nodes_delimiter([node1], "*", TextType.ITALIC)
+        node1 = TextNode("this is _italic_ text", TextType.TEXT)
+        nodes = split_nodes_delimiter([node1], "_", TextType.ITALIC)
         self.assertEqual(nodes[0], TextNode("this is ", TextType.TEXT))
         self.assertEqual(nodes[1], TextNode("italic", TextType.ITALIC))
         self.assertEqual(nodes[2], TextNode(" text", TextType.TEXT))
@@ -59,9 +59,9 @@ class TestDelimiterSplit (unittest.TestCase):
         self.assertEqual(nodes[1], TextNode(" text", TextType.TEXT))
 
     def test_bold_and_italic(self):
-        node1 = TextNode("this text is **bold** and *italic*", TextType.TEXT)
+        node1 = TextNode("this text is **bold** and _italic_", TextType.TEXT)
         nodes = split_nodes_delimiter([node1], "**", TextType.BOLD)
-        nodes = split_nodes_delimiter(nodes, "*", TextType.ITALIC)
+        nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
         self.assertListEqual(
             [
                 TextNode("this text is ", TextType.TEXT),
@@ -209,7 +209,7 @@ class TestSplitNodeLinks (unittest.TestCase):
 
 class TestTextToNode (unittest.TestCase):
     def test_multiple(self):
-        text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         expected_nodes = [
             TextNode("This is ", TextType.TEXT),
             TextNode("text", TextType.BOLD),
