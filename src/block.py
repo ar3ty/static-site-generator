@@ -138,4 +138,3 @@ def markdown_to_html_nodes(markdown):
         parent_nodes.append(parent_node)
     grandpa_node = ParentNode("div", parent_nodes)
     return grandpa_node
-
