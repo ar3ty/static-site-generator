@@ -256,7 +256,7 @@ tag here
 This is another paragraph with _italic_ text and `code` here
 
 """
-        expected = markdown_to_html_nodes(md)
+        expected = markdown_to_html_node(md)
         self.assertEqual(
             expected.to_html(), 
             "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>"
@@ -269,7 +269,7 @@ This is text that _should_ remain
 the **same** even with inline stuff
 ```
 """
-        expected = markdown_to_html_nodes(md)
+        expected = markdown_to_html_node(md)
         self.assertEqual(
             expected.to_html(), 
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>"
@@ -283,7 +283,7 @@ the **same** even with inline stuff
 This is paragraph with _italic_ text and `code` here
 
 """
-        expected = markdown_to_html_nodes(md)
+        expected = markdown_to_html_node(md)
         self.assertEqual(
             expected.to_html(), 
             "<div><blockquote>This is quote text in quote</blockquote><p>This is paragraph with <i>italic</i> text and <code>code</code> here</p></div>"
@@ -299,7 +299,7 @@ This is paragraph with _italic_ text and `code` here
 - text in list
 - here you are
 """
-        expected = markdown_to_html_nodes(md)
+        expected = markdown_to_html_node(md)
         self.assertEqual(
             expected.to_html(), 
             "<div><ol><li>Ordered list</li><li>with some text</li><li>third line</li></ol><ul><li>This is list</li><li>text in list</li><li>here you are</li></ul></div>"
@@ -316,7 +316,7 @@ this is paragraph text
 ###### this is an h6
 """
 
-        node = markdown_to_html_nodes(md)
+        node = markdown_to_html_node(md)
         html = node.to_html()
         self.assertEqual(
             html,

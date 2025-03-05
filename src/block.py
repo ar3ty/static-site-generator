@@ -130,7 +130,7 @@ def handle_block_type(block):
         case _:
             raise Exception("Unknown blocktype")
 
-def markdown_to_html_nodes(markdown):
+def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     parent_nodes = []
     for block in blocks:

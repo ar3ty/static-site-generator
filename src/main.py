@@ -1,12 +1,11 @@
 import sys, os, shutil
-from recursivecopy import copy_from_static_to_public
+from fillespages import copy_from_static_to_public, generate_pages_recursively
 
 def main():
-    if len(sys.argv) < 3:
-        print("usage: python3 main.py <source_path> <destination_path>")
-        sys.exit(1)
-    source = sys.argv[1]
-    destination = sys.argv[2]
+    source = "./static"
+    destination = "./public"
+    dir_path_content = "./content"
+    template_path = "./template.html"
     try:
         if os.path.exists(destination):
             shutil.rmtree(destination)
@@ -19,5 +18,6 @@ def main():
         raise Exception("Source folder does not exist")
     print("Copying contents of static files to public directory:")
     copy_from_static_to_public(source, destination)
+    generate_pages_recursively(dir_path_content, template_path, destination)
 
 main()
