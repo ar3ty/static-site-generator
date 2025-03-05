@@ -3,7 +3,7 @@ from fillespages import copy_from_static_to_public, generate_pages_recursively
 
 def main():
     if len(sys.argv) == 1:
-        basepath = "./"
+        basepath = "/"
     else:
         basepath = sys.argv[1] + "/"
     source = basepath + "static"
