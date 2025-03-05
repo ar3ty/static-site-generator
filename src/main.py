@@ -6,10 +6,10 @@ def main():
         basepath = "/"
     else:
         basepath = sys.argv[1] + "/"
-    source = basepath + "static"
-    destination = basepath + "docs"
-    dir_path_content = basepath + "content"
-    template_path = basepath + "template.html"
+    source = "./static"
+    destination = "./docs"
+    dir_path_content = "./content"
+    template_path = "./template.html"
     try:
         if os.path.exists(destination):
             shutil.rmtree(destination)
