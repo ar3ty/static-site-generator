@@ -5,7 +5,7 @@ def main():
     if len(sys.argv) == 1:
         basepath = "/"
     else:
-        basepath = sys.argv[1] + "/"
+        basepath = sys.argv[1]
     source = "./static"
     destination = "./docs"
     dir_path_content = "./content"
