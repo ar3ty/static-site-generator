@@ -44,7 +44,7 @@ def write_to_dest_path(dest_path, page):
         f.write(page)
          
 
-def generate_page(path_from, template_path, dest_path):
+def generate_page(path_from, template_path, dest_path, basepath):
     print(f"Generating page from {path_from} to {dest_path} using {template_path}")
     with open(path_from) as f:
         markdown = f.read()
@@ -54,9 +54,11 @@ def generate_page(path_from, template_path, dest_path):
     title = extract_title(markdown)
     page = template.replace("{{ Title }}", title)
     page = page.replace("{{ Content }}", html)
+    page = page.replace('href="/', f'href="{basepath}')
+    page = page.replace('src="/', f'src="{basepath}')
     write_to_dest_path(dest_path, page)
 
-def generate_pages_recursively(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursively(dir_path_content, template_path, dest_dir_path, basepath):
     contents = os.listdir(dir_path_content)
     if len(contents) == 0:
         return 
@@ -65,10 +67,10 @@ def generate_pages_recursively(dir_path_content, template_path, dest_dir_path):
         if os.path.isfile(current_item_path) and current_item_path.endswith(".md"):
             filename = os.path.splitext(item)[0] + ".html"
             to_file = os.path.join(dest_dir_path, filename)
-            generate_page(current_item_path, template_path, to_file)
+            generate_page(current_item_path, template_path, to_file, basepath)
         elif os.path.isdir(current_item_path):
             destination_item_path = os.path.join(dest_dir_path, item)
             if not os.path.exists(destination_item_path):
                 os.mkdir(destination_item_path)
             print(f"Source directory: {current_item_path} was replicated in: {destination_item_path}")
-            generate_pages_recursively(current_item_path, template_path, destination_item_path)
+            generate_pages_recursively(current_item_path, template_path, destination_item_path, basepath)
